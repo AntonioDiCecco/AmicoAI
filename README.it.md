@@ -102,8 +102,8 @@ Every cycle, four voices with creative "hats" (Poet, Strategist, Jester, Conscie
 
 - **Slash commands:** `/search`, `/fetch`, `/imagine`, `/em` (emoji picker), `/version`, `/export`
 - **Internet mode toggle (🌐):** when ON, the agent can search/read pages itself — fully conscious of having used the tools; when OFF, it has no web access and knows it
-- **Web search & fetch:** Brave search + page fetching, synthesized answers in the agent's voice, with source mini-bubbles
-- **AI image generation** (`/imagine`) with Pixabay fallback
+- **Web search & fetch:** web search + page fetching, synthesized answers in the agent's voice, with source mini-bubbles
+- **AI image generation** (`/imagine`)
 - **Inner voices & memory panel** visible in the UI
 - **PWA** — installable, offline-friendly
 - **Version detection** — discreet update reminders when UI and server drift apart
