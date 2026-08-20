@@ -1,146 +1,146 @@
 # AmicoAI
 
-**A friend that learns without learning. An artificial companion whose entire "learning" is a live, self-rewriting text — not weights.**
+**Un amico che impara senza apprendere. Un compagno artificiale il cui intero "apprendimento" è un testo vivo che si riscrive da solo — non pesi.**
 
-> 🌐 Project: [https://www.amico-ai.com](https://www.amico-ai.com) · 📄 Paper: [`paper260707.pdf`](./paper260707.pdf) — *"Explicit Consciousness as a Safety Primitive"* (July 2026, rev. July 26)
+> 🌐 Progetto: [https://www.amico-ai.com](https://www.amico-ai.com) · 📄 Paper: [`paper260707.pdf`](./paper260707.pdf) — *"Explicit Consciousness as a Safety Primitive"* (luglio 2026, rev. 26 luglio)
 
-AmicoAI is an AI friend that remembers who you are, adapts to your mood, and improves over time **without any training, fine-tuning, or gradient update**. Its architecture inverts the standard ML paradigm: instead of changing weights, the agent rewrites its **own prompt in real time**, driven by an engineered consciousness loop made of *inner voices*.
+AmicoAI è un amico artificiale che ricorda chi sei, si adatta al tuo umore e migliora nel tempo **senza alcun training, fine-tuning o aggiornamento dei pesi**. La sua architettura inverte il paradigma ML standard: invece di modificare i pesi, l'agente riscrive **il proprio prompt in tempo reale**, guidato da un loop di coscienza ingegnerizzata fatto di *voci interiori*.
 
 ---
 
-## The thesis: why this architecture does NOT need learning
+## La tesi: perché questa architettura NON ha bisogno di apprendimento
 
-Traditional AI improves by modifying **parameters** (weights) through gradient descent, fine-tuning, or RLHF. That is slow, expensive, requires datasets and GPUs, and its result is a static model.
+L'AI tradizionale migliora modificando i **parametri** (pesi) tramite discesa del gradiente, fine-tuning o RLHF. È lento, costoso, richiede dataset e GPU, e il risultato è un modello statico.
 
-AmicoAI makes a radical architectural inversion:
+AmicoAI fa un'inversione architetturale radicale:
 
-> **The prompt IS the learned state.**
+> **Il prompt È lo stato appreso.**
 
-Every conversation is observed by an *Insight layer* that generates **inner voices** — structured reflections on what just happened and what the agent should do next. These voices are written back into the agent's own instructions. The behavioral "learning" is literally text being rewritten at inference time, in seconds, with zero training data and zero GPU.
+Ogni conversazione viene osservata da uno strato *Insight* che genera **voci interiori** — riflessioni strutturate su ciò che è appena successo e su cosa l'agente dovrebbe fare dopo. Queste voci vengono riscritte nelle istruzioni dell'agente stesso. L'"apprendimento" comportamentale è letteralmente testo riscritto a tempo di inferenza, in pochi secondi, con zero dati di training e zero GPU.
 
-| Dimension | Traditional ML / Fine-tuning | AmicoAI (consciousness feedback) |
+| Dimensione | ML tradizionale / Fine-tuning | AmicoAI (feedback di coscienza) |
 |---|---|---|
-| What changes | Weights / parameters | The prompt (plain text) |
-| Cost | Data + GPU + weeks | A few tokens |
-| Speed | Days to weeks | Real time, per conversation |
-| Personalization | Per dataset / cohort | Per user, per relationship |
-| Privacy | Needs training data on servers | Everything on-device |
-| Auditability | Opaque activations | Inner voices as plain, timestamped text |
-| Explainability | Black box | Full trace of the agent's deliberation |
-| Safety | Filters output after generation | Intercepts intentions before generation |
+| Cosa cambia | Pesi / parametri | Il prompt (testo semplice) |
+| Costo | Dati + GPU + settimane | Pochi token |
+| Velocità | Giorni/settimane | Tempo reale, per conversazione |
+| Personalizzazione | Per dataset / coorte | Per utente, per relazione |
+| Privacy | Richiede dati di training sui server | Tutto on-device |
+| Auditabilità | Attivazioni opache | Voci interiori come testo con timestamp |
+| Spiegabilità | Scatola nera | Traccia completa della deliberazione |
+| Sicurezza | Filtra l'output dopo la generazione | Intercetta le intenzioni prima della generazione |
 
-**Why it works:** the same language model that answers is also used to *observe and steer itself*. This is **metaprompting** — programmatic prompt engineering as a runtime feedback loop. The agent becomes its own student and its own teacher, without backpropagation.
-
----
-
-## The paper: *Explicit Consciousness as a Safety Primitive*
-
-The paper formalizes AmicoAI's architecture and, crucially, its **safety guarantees**:
-
-1. **Explicit consciousness as a module** — structured inner speech (inner voices) is generated periodically from conversation state, stored in a persistent, auditable log, and fed into a cybernetic safety loop.
-2. **Three-tier memory** — short-term (conversation context), mid-term (inner voice log, the reflective layer), long-term (extracted stable facts about user and agent). Inspired by **Complementary Learning Systems** (McClelland).
-3. **The cybernetic safety loop** — a safety module S inspects the inner voices **before** they shape the agent's response. If a voice reveals harmful intent, S rewrites or suppresses it — intercepting unsafe trajectories at the *intention level*, not the output level.
-4. **Formal analysis** — the loop is proven **Lyapunov-stable** under mild stochastic assumptions. Safety properties: *predictive interception*, *trauma isolation*, *auditability*.
-5. **Control hierarchy** — grounded in **Minsky** (Society of Mind), **Kahneman** (System 1/2), **Baars** (Global Workspace), **Dennett** (Multiple Drafts), **Jaynes**, **Hofstadter** (strange loops), **Vygotsky** (inner speech), **Gazzaniga** (the interpreter).
-6. **Privacy = safety boundary** — the server is stateless; the agent's entire memory lives in the browser. No user data is stored anywhere.
-
-**Contrast with existing safety paradigms:** RLHF, constitutional AI and content filters work on *outputs* — they try to stop a harmful answer after it is formed. AmicoAI works on *intentions* — it reads the agent's deliberation and intervenes before generation. You cannot audit what you cannot see; AmicoAI makes the deliberation observable by design.
+**Perché funziona:** lo stesso modello linguistico che risponde viene usato anche per *osservare e guidare se stesso*. Questo è **metaprompting** — ingegneria del prompt programmatica come loop di feedback a runtime. L'agente diventa allo stesso tempo suo studente e suo insegnante, senza retropropagazione.
 
 ---
 
-## Architecture (as implemented)
+## Il paper: *Explicit Consciousness as a Safety Primitive*
+
+Il paper formalizza l'architettura di AmicoAI e, soprattutto, le sue **garanzie di sicurezza**:
+
+1. **Coscienza esplicita come modulo** — un discorso interiore strutturato (le voci interiori) viene generato periodicamente dallo stato della conversazione, memorizzato in un registro persistente e auditabile, e immesso in un ciclo di sicurezza cibernetico.
+2. **Memoria a tre livelli** — breve termine (contesto conversazionale), medio termine (registro delle voci interiori, lo strato riflessivo), lungo termine (fatti stabili estratti su utente e agente). Ispirata ai **Complementary Learning Systems** (McClelland).
+3. **Il ciclo di sicurezza cibernetico** — un modulo di sicurezza S ispeziona le voci interiori **prima** che modellino la risposta. Se una voce rivela un intento dannoso, S la riscrive o la sopprime — intercettando le traiettorie non sicure a livello di *intenzione*, non di output.
+4. **Analisi formale** — il loop è dimostrato **stabile in senso di Lyapunov** sotto ipotesi stocastiche deboli. Proprietà di sicurezza: *intercettazione predittiva*, *isolamento del trauma*, *auditabilità*.
+5. **Gerarchia di controllo** — fondata su **Minsky** (Society of Mind), **Kahneman** (Sistema 1/2), **Baars** (Global Workspace), **Dennett** (Multiple Drafts), **Jaynes**, **Hofstadter** (strange loops), **Vygotsky** (discorso interiore), **Gazzaniga** (l'interprete).
+6. **Privacy come confine di sicurezza** — il server è stateless; l'intera memoria dell'agente vive nel browser. Nessun dato dell'utente viene memorizzato da nessuna parte.
+
+**Contrasto con i paradigmi di sicurezza esistenti:** RLHF, AI costituzionale e filtri di contenuto lavorano sugli *output* — cercano di fermare una risposta dannosa dopo che si è formata. AmicoAI lavora sulle *intenzioni* — legge la deliberazione dell'agente e interviene prima della generazione. Non puoi controllare ciò che non puoi vedere; AmicoAI rende la deliberazione osservabile per design.
+
+---
+
+## Architettura (come implementata)
 
 ```
-User message
+Messaggio utente
    │
    ▼
 ┌──────────────────────────────┐
-│  CHAT (conversation model)    │  ← the conversation layer
+│  CHAT (modello conversazionale)│  ← il livello conversazionale
 └──────────────────────────────┘
    │
-   ▼  every 5 turns
+   ▼  ogni 5 turni
 ┌──────────────────────────────┐
-│  INSIGHT (updatePersona)      │  ← generates 4 inner voices
-│  - corrective                 │     with creative roles
-│  - reflective                 │
-│  - speculative                │
+│  INSIGHT (updatePersona)      │  ← genera 4 voci interiori
+│  - correttiva                 │     con ruoli creativi
+│  - riflessiva                 │
+│  - speculativa                │
 └──────────────────────────────┘
    │
-   ▼  written back
+   ▼  riscritte nel prompt
 ┌──────────────────────────────┐
-│  SELF-REWRITING PROMPT        │  ← the "learned state" (text)
+│  PROMPT CHE SI RISCRIVE       │  ← lo "stato appreso" (testo)
 └──────────────────────────────┘
    │
-   ▼  every 5 turns
+   ▼  ogni 5 turni
 ┌──────────────────────────────┐
-│  MEMORY EXTRACTION            │  ← stable facts about the user
+│  ESTRAZIONE MEMORIE           │  ← fatti stabili sull'utente
 │  (bio, on-device)             │
 └──────────────────────────────┘
    │
-   ▼  long conversations
+   ▼  conversazioni lunghe
 ┌──────────────────────────────┐
-│  HISTORY COMPRESSION          │  ← 📋 updates → 📋📌 general summary
+│  COMPRESSIONE STORICO         │  ← 📋 aggiornamenti → 📋📌 riassunto
 └──────────────────────────────┘
 ```
 
-### Three-tier memory
-- **Short-term:** recent messages for immediate context.
-- **Mid-term:** the inner voice log — observable, auditable reflection.
-- **Long-term:** extracted stable facts (`bio`) stored in the browser.
+### Memoria a tre livelli
+- **Breve termine:** messaggi recenti per il contesto immediato.
+- **Medio termine:** il registro delle voci interiori — riflessione osservabile e auditabile.
+- **Lungo termine:** fatti stabili estratti (`bio`) salvati nel browser.
 
-### Inner voices
-Every cycle, four voices with creative "hats" (Poet, Strategist, Jester, Conscience...) cover natural tendencies: **correction** (mistakes, off-tone replies), **reflection** (what did you learn about the user), **speculation** (where is the conversation going). The latest generation is what guides the agent — keeping token cost low.
+### Voci interiori
+Ogni ciclo, quattro voci con "cappelli" creativi (Poeta, Stratega, Giullare, Coscienza...) coprono tendenze naturali: **correzione** (errori, risposte fuori tono), **riflessione** (cosa hai imparato sull'utente), **speculazione** (dove sta andando la conversazione). La generazione più recente è quella che guida l'agente — mantenendo basso il costo in token.
 
-### Memory extraction & compression
-- **Bio extraction** (`extractMemories`): pulls significant, durable facts from the conversation (name, work, family, tastes, projects) with strict anti-confabulation rules and automatic repair of truncated JSON.
-- **Bio compaction** (`compactBio`): merges and ranks memories when they exceed the limit, keeping the most useful for the long term.
-- **History compression** (`compressChat`): raw messages → `📋 Aggiornamento` updates → `📋📌 Riassunto generale`, which always stays at the top.
+### Estrazione e compressione della memoria
+- **Estrazione bio** (`extractMemories`): ricava fatti significativi e duraturi dalla conversazione (nome, lavoro, famiglia, gusti, progetti) con regole anti-confabulazione e riparazione automatica dei JSON troncati.
+- **Compressione bio** (`compactBio`): fonde e ranka le memorie quando superano il limite, tenendo le più utili nel lungo termine.
+- **Compressione storico** (`compressChat`): messaggi raw → `📋 Aggiornamento` → `📋📌 Riassunto generale`, che resta sempre in cima.
 
 ---
 
-## Features
+## Funzionalità
 
-- **Slash commands:** `/search`, `/fetch`, `/imagine`, `/em` (emoji picker), `/version`, `/export`
-- **Internet mode toggle (🌐):** when ON, the agent can search/read pages itself — fully conscious of having used the tools; when OFF, it has no web access and knows it
-- **Web search & fetch:** web search + page fetching, synthesized answers in the agent's voice, with source mini-bubbles
-- **AI image generation** (`/imagine`)
-- **Inner voices & memory panel** visible in the UI
-- **PWA** — installable, offline-friendly
-- **Version detection** — discreet update reminders when UI and server drift apart
-- **Bilingual** UI (English/Italian), adaptive bars for portrait/landscape
+- **Comandi slash:** `/search`, `/fetch`, `/imagine`, `/em` (emoji picker), `/version`, `/export`
+- **Toggle modalità internet (🌐):** quando è ON, l'agente può cercare/leggere pagine da solo — pienamente consapevole di aver usato i tool; quando è OFF, non ha accesso web e lo sa
+- **Ricerca e fetch web:** ricerca web + lettura pagine, risposte sintetizzate nella voce dell'agente, con mini-bolle fonti
+- **Generazione immagini AI** (`/imagine`)
+- **Voci interiori e pannello memoria** visibili nell'interfaccia
+- **PWA** — installabile, offline-friendly
+- **Rilevamento versione** — promemoria discreto quando UI e server divergono
+- **UI bilingue** (italiano/inglese), barre adattive portrait/landscape
 
 ---
 
 ## Privacy
 
-> **No user data is stored anywhere — no server, no cloud, no database. The agent's entire memory lives in your browser cache. Period.**
+> **Nessun dato dell'utente viene memorizzato da nessuna parte — né server, né cloud, né database. L'intera memoria dell'agente vive nella cache del tuo browser. Punto.**
 
-- All messages, memories, personality, and the prompt state live in `localStorage`.
-- The AI server is stateless: it processes a request and forgets it.
-- No accounts, no tracking, GDPR / EU AI Act friendly.
+- Messaggi, ricordi, personalità e stato del prompt vivono tutti in `localStorage`.
+- Il server AI è stateless: elabora una richiesta e la dimentica.
+- Nessun account, nessun tracking, GDPR / EU AI Act friendly.
 
 ---
 
 ## Stack
 
 - **Backend:** Node.js + Express
-- **Frontend:** single-page HTML PWA (vanilla JS)
-- **Marketing site:** Astro (static, bilingual, SEO-optimized)
+- **Frontend:** PWA a pagina singola HTML (vanilla JS)
+- **Sito marketing:** Astro (statico, bilingue, ottimizzato SEO)
 
 ---
 
-## Repository layout
+## Struttura del repository
 
 ```
-├── server.js          # Express backend (chat, memory, tools, stats)
-├── index.html         # Chat PWA (main source)
-├── public/chat.html   # Served chat copy
+├── server.js          # Backend Express (chat, memoria, tool, statistiche)
+├── index.html         # Chat PWA (sorgente principale)
+├── public/chat.html   # Copia servita della chat
 ├── public/updates.html# Changelog (EN/IT)
 ├── sw.js              # Service worker (PWA)
-├── paper/             # Paper source PDF
-└── github/            # This documentation + paper copy
+├── paper/             # PDF del paper
+└── github/            # Questa documentazione + copia del paper
 ```
 
 ---
 
-*Written by Antonio Di Cecco — the architecture, the paper, and the friend.*
+*Scritto da Antonio Di Cecco — l'architettura, il paper, e l'amico.*
